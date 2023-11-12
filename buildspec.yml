@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      # Commands to install any dependencies
+  pre_build:
+    commands:
+      - echo Restoring solution
+      - dotnet restore
+  build:
+    commands:
+      - echo Build started on `date`
+      - dotnet build -c Release
+      - echo Testing the project
+      - dotnet test -c Release --no-restore
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - # Commands for post-build steps like packaging
+
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
+
+cache:
+  paths:
+    - '/root/.nuget/**/*'
