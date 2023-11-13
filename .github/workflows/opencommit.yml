@@ -36,5 +36,5 @@ jobs:
           OCO_DESCRIPTION: false
           OCO_EMOJI: true
           OCO_MODEL: gpt-3.5-turbo-16k
-          OCO_LANGUAGE: 繁體中文
+          OCO_LANGUAGE: zh-TW
           OCO_PROMPT_MODULE: conventional-commit
