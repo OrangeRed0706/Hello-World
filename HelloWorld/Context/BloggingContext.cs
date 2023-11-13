@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelloWorld.Context
@@ -10,12 +11,16 @@ namespace HelloWorld.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseInMemoryDatabase("blog");
+            optionsBuilder.EnableSensitiveDataLogging();
+            optionsBuilder.EnableDetailedErrors();
+            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
         }
     }
 
     public class Blog
     {
-        public int BlogId { get; set; }
+        [Key]
+        public long BlogId { get; set; }
         public string Url { get; set; }
         public int Rating { get; set; }
         public virtual IEnumerable<Post> Posts { get; set; }
@@ -27,7 +32,7 @@ namespace HelloWorld.Context
         public string Title { get; set; }
         public string Content { get; set; }
 
-        public int BlogId { get; set; }
+        public long BlogId { get; set; }
         public virtual Blog Blog { get; set; }
     }
 }
