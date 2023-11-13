@@ -18,7 +18,7 @@ namespace HelloWorld.Context
         public int BlogId { get; set; }
         public string Url { get; set; }
         public int Rating { get; set; }
-        public List<Post> Posts { get; set; }
+        public virtual IEnumerable<Post> Posts { get; set; }
     }
 
     public class Post
@@ -28,6 +28,6 @@ namespace HelloWorld.Context
         public string Content { get; set; }
 
         public int BlogId { get; set; }
-        public Blog Blog { get; set; }
+        public virtual Blog Blog { get; set; }
     }
 }
