@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
+using FluentAssertions.Common;
 using HelloWorld.Context;
+using IdGen.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
+builder.Services.AddIdGen(123);
 builder.Services.AddDbContext<BloggingContext>();
 // auto migration
 using (var context = new BloggingContext())

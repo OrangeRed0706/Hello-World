@@ -1,6 +1,8 @@
+using System.Reflection.Emit;
 using Bogus;
 using Bogus.DataSets;
 using HelloWorld.Context;
+using IdGen;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,11 +14,13 @@ namespace HelloWorld.Controllers
     {
         private readonly ILogger<BlogController> _logger;
         private readonly BloggingContext _bloggingContext;
+        private readonly IIdGenerator<long> _idGenerator;
 
-        public BlogController(ILogger<BlogController> logger, BloggingContext bloggingContext)
+        public BlogController(ILogger<BlogController> logger, BloggingContext bloggingContext, IIdGenerator<long> idGenerator)
         {
             _logger = logger;
             _bloggingContext = bloggingContext;
+            _idGenerator = idGenerator;
         }
 
         [HttpPost("create-random-blog")]
@@ -29,7 +33,7 @@ namespace HelloWorld.Controllers
                     .RuleFor(p => p.Title, f => f.Lorem.Sentence()) // Random sentence for title
                     .RuleFor(p => p.Content, f => f.Lorem.Paragraph()); // Random paragraph for content
                 var faker = new Faker<Blog>()
-                    .RuleFor(b => b.BlogId, f => f.Random.Number(1, 1000)) // Random number between 1 and 1000
+                    .RuleFor(b => b.BlogId, f => _idGenerator.CreateId()) // Random number between 1 and 1000
                     .RuleFor(b => b.Url, f => f.Internet.Url()) // Random URL
                     .RuleFor(b => b.Rating, f => f.Random.Number(1, 5)) // Random rating between 1 and 5
                     .RuleFor(b => b.Posts, f => postFaker.GenerateBetween(1, 5)); // Generate 1 to 5 posts
