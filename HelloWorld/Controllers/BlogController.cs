@@ -8,12 +8,12 @@ namespace HelloWorld.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TestController : ControllerBase
+    public class BlogController : ControllerBase
     {
-        private readonly ILogger<TestController> _logger;
+        private readonly ILogger<BlogController> _logger;
         private readonly BloggingContext _bloggingContext;
 
-        public TestController(ILogger<TestController> logger, BloggingContext bloggingContext)
+        public BlogController(ILogger<BlogController> logger, BloggingContext bloggingContext)
         {
             _logger = logger;
             _bloggingContext = bloggingContext;
